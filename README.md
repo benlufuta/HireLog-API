@@ -4,7 +4,7 @@ HireLog is a RESTful backend service for logging and tracking job applications t
 
 This project is being built as a production-style Spring Boot application, emphasizing clean architecture, proper validation, and scalable backend design.
 
-> $${\color{green}Status: Actively under development./}$$
+> **Status:** Actively under development.
 
 ---
 
