@@ -1,3 +1,5 @@
+package com.benlufuta.hirelog.domain;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -9,7 +11,7 @@ public class Application {
     private final String roleTitle;
     private Status status;
     private String location;
-    private final LocalDate dateApplied;
+    private LocalDate dateApplied;
     private String jobUrl;
     private LocalDate nextFollowUpDate;
     private String notes;
@@ -24,17 +26,44 @@ public class Application {
         this.companyName = companyName;
 
         if (roleTitle == null || roleTitle.isBlank()) {
-            throw new IllegalArgumentException("Role Title is required");
+            throw new IllegalArgumentException("Role title is required");
         }
         this.roleTitle = roleTitle;
         this.status = Status.SAVED;
-        this.location = null;
-        this.dateApplied = LocalDate.now();
+        this.dateApplied = null;
         this.jobUrl = jobUrl;
-        this.nextFollowUpDate = null;
         this.notes = notes;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-    }   
+    }
 
+    public void markAsApplied(){
+
+        this.status = Status.APPLIED;
+        this.dateApplied = LocalDate.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+    
+    public void markAsRejected(){
+        
+        this.status = Status.REJECTED;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void markAsInterviewing(){
+        
+        this.status = Status.INTERVIEWING;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    /**
+     * Updates notes of this job application.
+     * 
+     * @param notes the new notes from user.
+     */
+    public void updateNotes(String notes){
+        
+        this.notes = notes;
+        this.updatedAt = LocalDateTime.now();
+    }
 }
