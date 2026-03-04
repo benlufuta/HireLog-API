@@ -56,25 +56,35 @@ public class Application {
      */
     public void markAsInterviewing(){
         
-        if (this.status == Status.SAVED && dateApplied == null) {
-            throw new IllegalArgumentException("Not allowed. Must apply first!");
+        //If status is already INTERVIEWING, then don't anything.
+        if (this.status == Status.INTERVIEWING) return;
+
+        if (this.status != Status.APPLIED) {
+            throw new IllegalArgumentException("No interview prior to application. Must apply first!");
         }
+
         this.status = Status.INTERVIEWING;
         this.updatedAt = LocalDateTime.now();
     }
 
     public void setNextFollowUpDate(LocalDate nextFollowUpDate) {
 
-        if (this.status != Status.APPLIED && this.status != Status.INTERVIEWING && this.dateApplied == null) {
-
-            throw new IllegalArgumentException("You can only follow up if you’re actively in the process");
-
+        if (nextFollowUpDate == null) {
+            this.nextFollowUpDate = null;
+            this.updatedAt = LocalDateTime.now();
+            return;
+        }
+        if(this.status == null || this.dateApplied == null) {
+            throw new IllegalArgumentException("Follow-up allowed only for APPLIED or INTERVIEWING status");
+        }
+        if (this.status != Status.APPLIED && this.status != Status.INTERVIEWING) {
+            throw new IllegalArgumentException("Follow-up allowed only for APPLIED or INTERVIEWING status");
         }
 
         if (this.dateApplied.isAfter(nextFollowUpDate)) {
-            throw new IllegalArgumentException("Follow Up date has to be after date appliaction was submitted");
+            throw new IllegalArgumentException("Follow-up allowed only for APPLIED or INTERVIEWING status");
         }
-        this.nextFollowUpDate = nextFollowUpDate == null ? null : nextFollowUpDate;
+        this.nextFollowUpDate = nextFollowUpDate;
         this.updatedAt = LocalDateTime.now();
 
     }
