@@ -40,20 +40,43 @@ public class Application {
     public void markAsApplied(){
 
         this.status = Status.APPLIED;
-        this.dateApplied = LocalDate.now();
+        this.dateApplied = (this.dateApplied == null) ? LocalDate.now() : this.dateApplied;
         this.updatedAt = LocalDateTime.now();
     }
     
     public void markAsRejected(){
         
         this.status = Status.REJECTED;
+        this.nextFollowUpDate = null;
+        this.updatedAt = LocalDateTime.now();
+    }
+    /**
+     * Updates the status of this job applcation.
+     * 
+     */
+    public void markAsInterviewing(){
+        
+        if (this.status == Status.SAVED && dateApplied == null) {
+            throw new IllegalArgumentException("Not allowed. Must apply first!");
+        }
+        this.status = Status.INTERVIEWING;
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void markAsInterviewing(){
-        
-        this.status = Status.INTERVIEWING;
+    public void setNextFollowUpDate(LocalDate nextFollowUpDate) {
+
+        if (this.status != Status.APPLIED && this.status != Status.INTERVIEWING && this.dateApplied == null) {
+
+            throw new IllegalArgumentException("You can only follow up if you’re actively in the process");
+
+        }
+
+        if (this.dateApplied.isAfter(nextFollowUpDate)) {
+            throw new IllegalArgumentException("Follow Up date has to be after date appliaction was submitted");
+        }
+        this.nextFollowUpDate = nextFollowUpDate == null ? null : nextFollowUpDate;
         this.updatedAt = LocalDateTime.now();
+
     }
 
     /**
