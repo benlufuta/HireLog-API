@@ -37,6 +37,19 @@ public class Application {
         this.updatedAt = LocalDateTime.now();
     }
 
+    void assignId(Long id) {
+
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("ID must be positive");
+        }
+
+        if (this.id != null) {
+            throw new IllegalArgumentException("Application ID has already been assigned");
+        }
+        this.id = id;
+
+    }
+
     public void markAsApplied(){
 
         this.status = Status.APPLIED;
