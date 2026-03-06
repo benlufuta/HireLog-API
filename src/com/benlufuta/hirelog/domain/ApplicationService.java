@@ -2,6 +2,7 @@ package com.benlufuta.hirelog.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class ApplicationService {
 
@@ -36,14 +37,34 @@ public class ApplicationService {
                 return app;
             }
         }
+
+        //If nothing found, then return null.
         return null;
     }
 
     public List<Application> getAllApplications(){
 
-        //Return a new list. Safer and protects internal collections.
+        //Return a new list instead of return internal list.
+        //This protects internal list from external modification.
         return new ArrayList<>(applications);
     }
     
-    
+    public boolean deleteApplicaton(long applicationId){
+
+        // Iterator allows safe removal while iterating over the list
+        Iterator<Application> iterator = applications.iterator();
+
+        while (iterator.hasNext()) {
+
+            Application app = iterator.next();
+
+            //If found, remove and return true otherwise false
+            if (app.getId() == applicationId) {
+                iterator.remove();
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
