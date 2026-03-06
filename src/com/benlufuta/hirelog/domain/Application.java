@@ -1,6 +1,5 @@
 package com.benlufuta.hirelog.domain;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -120,5 +119,18 @@ public class Application {
         
         this.notes = notes;
         this.updatedAt = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "Application{" +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
+                ", roleTitle='" + roleTitle + '\'' +
+                ", status=" + status +
+                ", dateApplied=" + dateApplied +
+                ", nextFollowUpDate=" + nextFollowUpDate +
+                ", notes='" + notes + '\'' +
+                '}';
     }
 }

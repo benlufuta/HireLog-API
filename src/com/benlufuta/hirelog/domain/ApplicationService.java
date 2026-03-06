@@ -14,7 +14,7 @@ public class ApplicationService {
         this.nextId = 1;
     }
 
-    public Application addApplications(String companyName, String jobTitle, String jobUrl, String notes){
+    public Application addApplication(String companyName, String jobTitle, String jobUrl, String notes){
 
         //Create a new application object when addApplications is called.
         Application app = new Application(companyName, jobTitle, jobUrl, notes);
@@ -65,7 +65,7 @@ public class ApplicationService {
         return new ArrayList<>(applications);
     }
     
-    public boolean deleteApplicaton(long applicationId){
+    public boolean deleteApplication(long applicationId){
 
         // Iterator allows safe removal while iterating over the list
         Iterator<Application> iterator = applications.iterator();
