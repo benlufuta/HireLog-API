@@ -42,6 +42,22 @@ public class ApplicationService {
         return null;
     }
 
+    public List<Application> findByStatus(Status status){
+
+        if (status == null) {
+            throw new IllegalArgumentException("Status can't be null");
+        }
+        List <Application> filteredApplications = new ArrayList<>();
+
+        for (Application app: applications){
+
+            if (app.getStatus() == status){
+                filteredApplications.add(app);
+            }
+        }
+        return filteredApplications;
+    }
+
     public List<Application> getAllApplications(){
 
         //Return a new list instead of return internal list.

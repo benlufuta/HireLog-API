@@ -42,6 +42,10 @@ public class Application {
         return id;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     void assignId(Long id) {
 
         if (id == null || id <= 0) {
