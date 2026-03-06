@@ -38,6 +38,10 @@ public class Application {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public Long getId() {
+        return id;
+    }
+
     void assignId(Long id) {
 
         if (id == null || id <= 0) {

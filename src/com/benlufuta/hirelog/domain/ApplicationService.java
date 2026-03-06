@@ -18,7 +18,7 @@ public class ApplicationService {
         //Create a new application object when addApplications is called.
         Application app = new Application(companyName, jobTitle, jobUrl, notes);
 
-        //new object and also assign id number.
+        //add new object and also assign id number.
         //Manually assigned for now, will be automated when DB is implemented.
         applications.add(app);
         app.assignId(nextId);
@@ -29,6 +29,15 @@ public class ApplicationService {
         return app;
     }
 
+    public Application findById(long id) {
+
+        for (Application app : applications) {
+            if (id == app.getId()) {
+                return app;
+            }
+        }
+        return null;
+    }
     
     
 }
