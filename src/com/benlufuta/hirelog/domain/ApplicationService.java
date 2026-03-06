@@ -38,6 +38,12 @@ public class ApplicationService {
         }
         return null;
     }
+
+    public List<Application> getAllApplications(){
+
+        //Return a new list. Safer and protects internal collections.
+        return new ArrayList<>(applications);
+    }
     
     
 }
