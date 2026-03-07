@@ -1,5 +1,9 @@
-package com.benlufuta.hirelog.domain;
+package com.benlufuta.hirelog.demo;
 import java.time.LocalDate;
+
+import com.benlufuta.hirelog.domain.Application;
+import com.benlufuta.hirelog.domain.Status;
+import com.benlufuta.hirelog.service.ApplicationService;
 
 public class AppRunner {
     public static void main(String[] args) throws Exception {

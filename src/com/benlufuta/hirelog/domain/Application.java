@@ -45,7 +45,7 @@ public class Application {
         return status;
     }
 
-    void assignId(Long id) {
+    public void assignId(Long id) {
 
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("ID must be positive");

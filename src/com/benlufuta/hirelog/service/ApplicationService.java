@@ -1,7 +1,11 @@
-package com.benlufuta.hirelog.domain;
+package com.benlufuta.hirelog.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.benlufuta.hirelog.domain.Application;
+import com.benlufuta.hirelog.domain.Status;
+
 import java.util.Iterator;
 
 public class ApplicationService {
