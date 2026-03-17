@@ -1,5 +1,14 @@
+# Compiled files
 *.class
-bin/
+
+# Maven build output
+target/
+
+# IDE
 .vscode/
+
+# Logs
 *.log
+
+# OS files
 .DS_Store
