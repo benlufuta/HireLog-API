@@ -1,15 +1,37 @@
 package com.benlufuta.hirelog.service;
+import com.benlufuta.hirelog.domain.Application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
+
 
 public class ApplicationServiceTest {
 
+    String companyName = "Google";
+    String jobTitle = "SWE Intern";
+    String website = "google.com";
+    String description = "Very big and influential company with a lot of opportunities.";
+
+    ApplicationService service = new ApplicationService();
+
     @Test
-    void testAddApplication() {
-        fail("This test method is yet to be implemented!");
-        assertEquals(5, 5,0);
+    void addApplication_shouldCreateAndStoreApplication() {
+        
+        Application app = service.addApplication(companyName, jobTitle, website, description);
+
+        //Object Creation check
+        assertNotNull(app);
+        //ID generation check
+        assertEquals(1, app.getId());
+        //Retrieval check
+        assertEquals(app, service.findById(app.getId()));
+        //Storage Check
+        assertEquals(1, service.getAllApplications().size());
+        //Data Integrity Check
+        assertEquals(companyName, app.getCompanyName());
 
     }
 

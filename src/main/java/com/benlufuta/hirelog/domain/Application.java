@@ -41,6 +41,10 @@ public class Application {
         return id;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
     public Status getStatus() {
         return status;
     }

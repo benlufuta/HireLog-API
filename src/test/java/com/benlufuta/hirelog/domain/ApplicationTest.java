@@ -9,6 +9,7 @@ public class ApplicationTest {
     @Test
     void testAssignId() {
         fail("This test method is yet to be implemented!");
+        assertEquals(5, 5);
     }
 
     @Test
