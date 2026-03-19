@@ -5,7 +5,7 @@ import com.benlufuta.hirelog.domain.Application;
 import com.benlufuta.hirelog.domain.Status;
 import com.benlufuta.hirelog.service.ApplicationService;
 
-public class AppRunner {
+public class HireLogDemo {
     public static void main(String[] args) throws Exception {
         
 
