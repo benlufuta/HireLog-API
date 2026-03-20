@@ -2,10 +2,13 @@ package com.benlufuta.hirelog.service;
 import com.benlufuta.hirelog.domain.Application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -47,8 +50,21 @@ public class ApplicationServiceTest {
     }
 
     @Test
-    void testDeleteApplication() {
-        fail("This test method is yet to be implemented!");
+    void deleteApplication_shouldRemoveApplication(){
+        
+        Application app = service.addApplication(companyName, jobTitle, website, description);
+        //Return true if successfully deleted.
+        assertTrue(service.deleteApplication(app.getId()));
+    }
+
+    @Test
+    void deleteApplication_shouldReturnFalseWhenNotFound(){
+
+        Application app = service.addApplication(companyName, jobTitle, website, description);
+        service.deleteApplication(app.getId());
+        //Return false if not found.
+        assertFalse(service.deleteApplication(app.getId()));
+
     }
 
     @Test
