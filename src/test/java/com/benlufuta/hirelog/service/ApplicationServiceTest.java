@@ -3,14 +3,17 @@ import com.benlufuta.hirelog.domain.Application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.junit.jupiter.api.Test;
 
 public class ApplicationServiceTest {
 
@@ -68,12 +71,28 @@ public class ApplicationServiceTest {
     }
 
     @Test
-    void testFindByStatus() {
-        fail("This test method is yet to be implemented!");
+    void getAllApplications_returnsAllStoredApplications() {
+        
+        service.addApplication(companyName, jobTitle, website, description);
+        service.addApplication("Apple", "Senior SDE", "apple.com", "Good company culture and great growth opportunities.");
+
+        List<Application> result = service.getAllApplications();
+
+        //Check the size of the list returned equals the number of applications stored so far.
+        assertEquals(2, result.size());
+
+        //Check the integrity of the data returned
+        assertEquals(companyName, result.get(0).getCompanyName());
+        assertEquals("Apple", result.get(1).getCompanyName());
+
+        //Check defensive copy to make sure stored data has not been affected by the above.
+        result.clear();
+        assertEquals(2, service.getAllApplications().size());
     }
 
+    
     @Test
-    void testGetAllApplications() {
+    void testFindByStatus() {
         fail("This test method is yet to be implemented!");
     }
 }
