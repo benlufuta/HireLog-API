@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ApplicationServiceTest {
@@ -19,8 +20,12 @@ public class ApplicationServiceTest {
     String jobTitle = "SWE Intern";
     String website = "google.com";
     String description = "Very big and influential company with a lot of opportunities.";
+    ApplicationService service;
 
-    ApplicationService service = new ApplicationService();
+    @BeforeEach
+    void setUp() {
+        service = new ApplicationService();
+    }
 
     @Test
     void addApplication_shouldCreateAndStoreApplication() {
