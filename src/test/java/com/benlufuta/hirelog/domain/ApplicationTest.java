@@ -20,6 +20,42 @@ public class ApplicationTest {
     }
 
     @Test
+    void constructor_shouldThrowWhenCompanyNameIsNull(){
+
+        assertThrows(IllegalArgumentException.class, () -> new Application(null, jobTitle, website, description));
+    }
+
+    @Test
+    void constructor_shouldThrowWhenCompanyNameIsBlank(){
+
+        assertThrows(IllegalArgumentException.class, () -> new Application(" ", jobTitle, website, description));
+    }
+
+    @Test
+    void constructor_shouldThrowWhenCompanyNameIsEmpty(){
+
+        assertThrows(IllegalArgumentException.class, () -> new Application("", jobTitle, website, description));
+    }
+
+    @Test
+    void constructor_shouldThrowWhenJobTitleIsNull(){
+
+        assertThrows(IllegalArgumentException.class, () -> new Application(companyName, null,website, description));
+    }
+
+    @Test
+    void constructor_shouldThrowWhenJobTitleIsEmpty(){
+
+        assertThrows(IllegalArgumentException.class, () -> new Application(companyName, "",website, description));
+    }
+
+    @Test
+    void constructor_shouldThrowWhenJobTitleIsBlank(){
+
+        assertThrows(IllegalArgumentException.class, () -> new Application(companyName, " ",website, description));
+    }
+
+    @Test
     void assignId_shouldThrowWhenIdIsNull() {
 
         assertThrows(IllegalArgumentException.class, () -> application.assignId(null));
