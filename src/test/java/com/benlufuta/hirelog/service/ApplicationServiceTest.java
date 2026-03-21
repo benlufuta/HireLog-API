@@ -1,16 +1,14 @@
 package com.benlufuta.hirelog.service;
 import com.benlufuta.hirelog.domain.Application;
+import com.benlufuta.hirelog.domain.Status;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -71,7 +69,7 @@ public class ApplicationServiceTest {
     }
 
     @Test
-    void getAllApplications_returnsAllStoredApplications() {
+    void getAllApplications_shouldReturnAllStoredApplications() {
         
         service.addApplication(companyName, jobTitle, website, description);
         service.addApplication("Apple", "Senior SDE", "apple.com", "Good company culture and great growth opportunities.");
@@ -92,7 +90,65 @@ public class ApplicationServiceTest {
 
     
     @Test
-    void testFindByStatus() {
-        fail("This test method is yet to be implemented!");
+    void findByStatus_shouldReturnOnlySavedApplications() {
+
+        Application appApplied = service.addApplication(companyName, jobTitle, website, description);
+        appApplied.markAsApplied();
+
+        Application appInterview = service.addApplication("Apple", "Senior SDE", "apple.com", "Good company culture and great growth opportunities.");
+        appInterview.markAsApplied();
+        appInterview.markAsInterviewing();
+
+        Application appSaved = service.addApplication("Wex Inc.", "DevOps Engineer", "wex.com", "Biggest Maine's FinTech Company.");
+
+        List<Application> result = service.findByStatus(Status.SAVED);
+
+        assertEquals(1, result.size());
+        assertEquals(appSaved.getCompanyName(), result.get(0).getCompanyName());
+        assertEquals(Status.SAVED, result.get(0).getStatus());
+
+    }
+
+    @Test
+    void findByStatus_shouldReturnOnlyAppliedApplications() {
+
+        Application appApplied = service.addApplication(companyName, jobTitle, website, description);
+        appApplied.markAsApplied();
+
+        Application appInterview = service.addApplication("Apple", "Senior SDE", "apple.com", "Good company culture and great growth opportunities.");
+        appInterview.markAsApplied();
+        appInterview.markAsInterviewing();
+
+        Application appSaved = service.addApplication("Wex Inc.", "DevOps Engineer", "wex.com", "Biggest Maine's FinTech Company.");
+
+        List<Application> result = service.findByStatus(Status.APPLIED);
+
+        assertEquals(1, result.size());
+        assertEquals(appApplied.getCompanyName(), result.get(0).getCompanyName());
+        assertEquals(Status.APPLIED, result.get(0).getStatus());
+
+    }
+
+        @Test
+    void findByStatus_shouldReturnEmptyListWhenNoMatches() {
+
+        Application appApplied = service.addApplication(companyName, jobTitle, website, description);
+        appApplied.markAsApplied();
+
+        Application appInterview = service.addApplication("Apple", "Senior SDE", "apple.com", "Good company culture and great growth opportunities.");
+        appInterview.markAsApplied();
+        appInterview.markAsInterviewing();
+
+        Application appSaved = service.addApplication("Wex Inc.", "DevOps Engineer", "wex.com", "Biggest Maine's FinTech Company.");
+
+        List<Application> result = service.findByStatus(Status.REJECTED);
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    void findByStatus_shouldThrowWhenStatusIsNull(){
+
+        assertThrows(IllegalArgumentException.class, () -> service.findByStatus(null));
+    
     }
 }
