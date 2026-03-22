@@ -1,6 +1,7 @@
 package com.benlufuta.hirelog.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
@@ -120,6 +121,37 @@ public class ApplicationTest {
         assertEquals(Status.INTERVIEWING, application.getStatus());
     }
 
-    
+    @Test
+    void markAsRejected_shouldClearFollowUpDate(){
+
+        //Set status to interviewing and set follow-up date.
+        application.markAsApplied();
+        application.markAsInterviewing();
+
+        //Create a followup date.
+        LocalDate followUp = LocalDate.now().plusDays(7);
+
+        application.setNextFollowUpDate(followUp);
+
+        assertEquals(Status.INTERVIEWING, application.getStatus());
+
+        //Then mark as rejected and check that follow-up date is removed.
+        application.markAsRejected();
+        assertNull(application.getNextFollowUpDate());
+
+    }
+
+    @Test
+    void markAsRejected_shouldUpdateStatus(){
+
+        //First, make sure status is not null.
+        application.markAsApplied();
+        assertEquals(Status.APPLIED, application.getStatus());
+
+        //Then, mark as rejected and check that status actually changed.
+        application.markAsRejected();
+        assertEquals(Status.REJECTED, application.getStatus());
+
+    }
     
 }

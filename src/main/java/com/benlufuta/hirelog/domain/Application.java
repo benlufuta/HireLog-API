@@ -57,6 +57,10 @@ public class Application {
         return updatedAt;
     }
 
+    public LocalDate getNextFollowUpDate() {
+        return nextFollowUpDate;
+    }
+
     public void assignId(Long id) {
 
         if (id == null || id <= 0) {
