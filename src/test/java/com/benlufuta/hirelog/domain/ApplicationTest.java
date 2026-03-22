@@ -1,7 +1,10 @@
 package com.benlufuta.hirelog.domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,12 +77,27 @@ public class ApplicationTest {
 
         application.assignId(1L);
 
-        assertThrows(IllegalArgumentException.class, () -> application.assignId(1L));
+        assertThrows(IllegalArgumentException.class, () -> application.assignId(2L));
     }
 
     @Test
-    void testMarkAsApplied() {
-        fail("This test method is yet to be implemented!");
+    void markAsApplied_shouldSetStatusToApplied() {
+        
+        //Check status state prior to updating it.
+        assertEquals(Status.SAVED, application.getStatus());
+
+        //Update status state and then check again.
+        application.markAsApplied();
+        assertEquals(Status.APPLIED, application.getStatus());
+    }
+
+    @Test
+    void markAsApplied_shouldSetDateApplied(){
+
+        LocalDate todayDate = LocalDate.now();
+
+        application.markAsApplied();
+        assertEquals(todayDate, application.getDateApplied());
     }
 
     @Test

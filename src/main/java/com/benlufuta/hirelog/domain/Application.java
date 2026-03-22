@@ -49,6 +49,10 @@ public class Application {
         return status;
     }
 
+    public LocalDate getDateApplied() {
+        return dateApplied;
+    }
+
     public void assignId(Long id) {
 
         if (id == null || id <= 0) {
