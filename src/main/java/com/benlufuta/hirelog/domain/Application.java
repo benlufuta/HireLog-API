@@ -53,6 +53,10 @@ public class Application {
         return dateApplied;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
     public void assignId(Long id) {
 
         if (id == null || id <= 0) {
@@ -85,7 +89,7 @@ public class Application {
      */
     public void markAsInterviewing(){
         
-        //If status is already INTERVIEWING, then don't anything.
+        //If status is already INTERVIEWING, then don't do anything.
         if (this.status == Status.INTERVIEWING) return;
 
         if (this.status != Status.APPLIED) {

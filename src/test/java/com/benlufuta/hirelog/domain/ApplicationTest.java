@@ -2,7 +2,6 @@ package com.benlufuta.hirelog.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 
@@ -101,18 +100,26 @@ public class ApplicationTest {
     }
 
     @Test
-    void testMarkAsInterviewing() {
-        fail("This test method is yet to be implemented!");
+    void markAsInterviewing_shouldThrowWhenNotApplied () {
+        
+        assertEquals(Status.SAVED, application.getStatus());
+
+        assertThrows(IllegalArgumentException.class, () -> application.markAsInterviewing());
+
     }
 
     @Test
-    void testMarkAsRejected() {
-        fail("This test method is yet to be implemented!");
+    void markAsInterviewing_shouldSetStatusWhenApplied() {
+
+        application.markAsApplied();
+
+        assertEquals(Status.APPLIED, application.getStatus());
+
+        application.markAsInterviewing();
+
+        assertEquals(Status.INTERVIEWING, application.getStatus());
     }
 
-    @Test
-    void testSetNextFollowUpDate() {
-        fail("This test method is yet to be implemented!");
-    }
+    
     
 }
