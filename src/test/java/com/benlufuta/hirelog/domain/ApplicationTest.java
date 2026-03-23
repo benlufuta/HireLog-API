@@ -153,5 +153,56 @@ public class ApplicationTest {
         assertEquals(Status.REJECTED, application.getStatus());
 
     }
+
+    @Test
+    void setNextFollowUpDate_shouldThrowWhenDateAppliedIsNull (){
+
+        LocalDate followUp = LocalDate.now().plusDays(3);
+        assertThrows(IllegalArgumentException.class, () -> application.setNextFollowUpDate(followUp));
+
+    }
+
+    @Test
+    void setNextFollowUpDate_shouldThrowWhenApplicationHasNotBeenApplied(){
+
+        //Check that status changed to Applied
+        application.markAsApplied();
+        assertEquals(Status.APPLIED, application.getStatus());
+
+        //Check that date applied was succefully set.
+        LocalDate today = LocalDate.now();
+        assertEquals(today, application.getDateApplied());
+
+        //Set follow-up date to a date prior to application date.
+        //And then check to make sure exception is thrown.
+        LocalDate followUp = LocalDate.now().minusDays(5);
+        assertThrows(IllegalArgumentException.class, () -> application.setNextFollowUpDate(followUp));
+    }
+
+    @Test
+    void setNextFollowUpDate_shouldSetValidFollowUpDate() {
+
+        application.markAsApplied();
+        LocalDate followUp = LocalDate.now().plusDays(7);
+        application.setNextFollowUpDate(followUp);
+
+        assertEquals(followUp, application.getNextFollowUpDate());
+    }
+
+    @Test
+    void setNextFollowUpDate_shouldClearFollowUpDateWhenNull(){
+
+        //Set status to applied and date.
+        application.markAsApplied();
+        //Set follow-up date to today + 7 days.
+        LocalDate followUp = LocalDate.now().plusDays(7);
+        application.setNextFollowUpDate(followUp);
+
+        //And now, reset follow-up date to null to ensure that the
+        //previously set date has been cleared.
+        //Then, assert that the follow-up is null now.
+        application.setNextFollowUpDate(null);
+        assertNull(application.getNextFollowUpDate());
+    }
     
 }
