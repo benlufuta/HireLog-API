@@ -1,5 +1,6 @@
 package com.benlufuta.hirelog.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,21 @@ public class ApplicationService {
     public ApplicationService() {
         this.applications = new ArrayList<>();
         this.nextId = 1;
+
+        //Line 25 to 37 are just for manually testing, as we do not have the database yet.
+        addApplication("Google", "SWE Intern", "google.com", "Strong Backend Role");
+        applications.get(0).markAsApplied();
+        applications.get(0).setNextFollowUpDate(LocalDate.now().plusDays(7));
+
+        addApplication("Amazon", "SDE 1", "amazon.com", "Prepare for Technical Interview.");
+        applications.get(1).markAsApplied();
+        applications.get(1).markAsInterviewing();
+        applications.get(1).setNextFollowUpDate(LocalDate.now().plusDays(15));
+
+        addApplication("Netflix","Backend Engineer Intern", "netflix.com","Focus on distributed systems"
+    );
+        applications.get(2).markAsApplied();
+        applications.get(2).setNextFollowUpDate(LocalDate.now().plusDays(5));
     }
 
     public Application addApplication(String companyName, String jobTitle, String jobUrl, String notes){

@@ -61,6 +61,27 @@ public class Application {
         return nextFollowUpDate;
     }
 
+    
+    public String getRoleTitle() {
+        return roleTitle;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getJobUrl() {
+        return jobUrl;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
     public void assignId(Long id) {
 
         if (id == null || id <= 0) {
