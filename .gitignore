@@ -1,14 +1,22 @@
-# Compiled files
-*.class
-
-# Maven build output
+# Maven
 target/
 
-# IDE
-.vscode/
+# Java
+*.class
 
 # Logs
 *.log
 
-# OS files
+# OS
 .DS_Store
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# Spring Boot / Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# Optional (if using HELP.md from Spring Initializr)
+HELP.md

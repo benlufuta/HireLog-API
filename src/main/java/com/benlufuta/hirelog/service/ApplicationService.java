@@ -3,11 +3,14 @@ package com.benlufuta.hirelog.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.benlufuta.hirelog.domain.Application;
 import com.benlufuta.hirelog.domain.Status;
 
 import java.util.Iterator;
 
+@Service
 public class ApplicationService {
 
     private List <Application> applications;
