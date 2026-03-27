@@ -25,7 +25,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/{id}")
-    public Object findById(@PathVariable Long id){
+    public Object findById(@PathVariable ("id") Long id){
 
         return service.findById(id);
     }
