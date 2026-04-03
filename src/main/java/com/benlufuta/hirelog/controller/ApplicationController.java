@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.benlufuta.hirelog.domain.Application;
 import com.benlufuta.hirelog.service.ApplicationService;
@@ -32,4 +34,13 @@ public class ApplicationController {
 
         return service.findById(id);
     }
+
+    @PostMapping
+    public Application addApplication(@RequestBody Application app) {
+
+        Application createdApplication = service.addApplication(app.getCompanyName(), app.getRoleTitle(), app.getJobUrl(), app.getNotes());
+
+        return createdApplication;
+    }
+
 }
