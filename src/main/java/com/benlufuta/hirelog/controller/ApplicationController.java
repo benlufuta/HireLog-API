@@ -2,12 +2,11 @@ package com.benlufuta.hirelog.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.benlufuta.hirelog.domain.Application;
 import com.benlufuta.hirelog.service.ApplicationService;
@@ -18,29 +17,30 @@ public class ApplicationController {
     
     private final ApplicationService service;
 
+
     public ApplicationController (ApplicationService service){
 
         this.service = service;
     }
 
     @GetMapping
-    public List<Application> getAllApplications(){
+    public ResponseEntity<List<Application>> getAllApplications(){
 
-        return service.getAllApplications();
+        return ResponseEntity.ok(service.getAllApplications());
     }
 
     @GetMapping("/{id}")
-    public Application getApplicationById(@PathVariable ("id") Long id){
+    public ResponseEntity<Application> getApplicationById(@PathVariable Long id) {
 
-        return service.findById(id);
+        Application application = service.findById(id);
+    
+        if (application == null) {
+            return ResponseEntity.notFound().build();  // 404, no body
+        }
+        
+        return ResponseEntity.ok(application);  // Code 200 + JSON body
+
+        //return repository.findById(id)
+           // .orElseThrow(() -> new ResourceNotFoundException("Application not found with id: " + id));
     }
-
-    @PostMapping
-    public Application addApplication(@RequestBody Application app) {
-
-        Application createdApplication = service.addApplication(app.getCompanyName(), app.getRoleTitle(), app.getJobUrl(), app.getNotes());
-
-        return createdApplication;
-    }
-
-}
+} 
